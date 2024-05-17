@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class MainClass {
+  public static void main(String[] args) {
+   Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        int jobs[] = new int[n];
+        int lim[] =new int[n];
+        for(int i=0;i<n;i++)
+        {
+            jobs[i]=s.nextInt();
+        }
+        for(int i=0;i<n;i++)
+        {
+            lim[i]=s.nextInt();
+        }
+        int ans[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=1;j<n;j++)
+            {
+                if(jobs[j]>jobs[j-1]){
+                int temp = jobs[j-1];
+                jobs[j-1]=jobs[j];
+                jobs[j]=temp;
+                int tem = lim[j-1];
+                lim[j-1]=lim[j];
+                lim[j]=tem;
+                }
+            }
+        }
+        int i=0,j=1;
+        while(n>0)
+        {
+            int k = lim[i];
+            if(ans[k-1]==0)
+            {
+                ans[k-1]=jobs[i];
+                i++;
+                n--;
+                j=k-1;
+            }
+            else if(ans[j]!=0)
+            {
+             j--;   
+            }
+            else
+            {
+                if(j>=0)
+                {
+                ans[j]=jobs[i];
+                i++;
+                j=k-1;
+                n--;
+                }
+                else
+                {
+                    i++;
+                    n--;
+                    continue;
+                }
+            }
+            if(j<=0&&ans[0]!=0){
+              j=k;
+              i++;
+              n--;
+        }
+    }
+    for(int ao:ans)
+    System.out.print(ao+" ");
+        
+        
+  }
+}
